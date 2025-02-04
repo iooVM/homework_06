@@ -1,13 +1,5 @@
 name: Django Tests
 
-on:
-  push:
-    branches:
-      - main  # Запускать тесты при пуше в ветку main
-  pull_request:
-    branches:
-      - main  # Запускать тесты при пул-реквесте в ветку main
-
 jobs:
   test:
     runs-on: ubuntu-latest
