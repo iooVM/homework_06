@@ -68,7 +68,6 @@ class ContractModelTest(TestCase):
         with self.assertRaises(Contract.DoesNotExist):
             Contract.objects.get(id=contract_id)
 
-
 class ContractViewsTest(TestCase):
     def setUp(self):
         self.contract = Contract.objects.create(
