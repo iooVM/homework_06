@@ -29,7 +29,6 @@ test:
     - poetry run python manage.py test
 
 manual_test:
-  stage: test
   script:
     - poetry run python manage.py test
   when: manual  # Запуск вручную
