@@ -88,11 +88,25 @@ class ContractDetailView(DetailView):
     template_name = 'network_manager/contract_detail.html'
     context_object_name = 'contract'
 
+# class ContractCreateView(CreateView):
+#     model = Contract
+#     form_class = ContractForm
+#     template_name = 'network_manager/contract_form.html'
+#     success_url = reverse_lazy('contracts')
+
+from .tasks import log_new_contract
+
 class ContractCreateView(CreateView):
     model = Contract
     form_class = ContractForm
     template_name = 'network_manager/contract_form.html'
     success_url = reverse_lazy('contracts')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        log_new_contract.delay(self.object.id)  # Вызов фоновой задачи
+        return response
+
 
 class ContractUpdateView(UpdateView):
     model = Contract
