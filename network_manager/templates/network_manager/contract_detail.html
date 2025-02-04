@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Contract Detail{% endblock %}
+
+{% block content %}
+<h1>Contract Detail</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ contract.contract_number }}</h5>
+        <p class="card-text">
+            <strong>Provider:</strong> {{ contract.provider }}<br>
+            <strong>Contact Person:</strong> {{ contract.contact_person }}<br>
+            <strong>Email:</strong> {{ contract.email }}
+        </p>
+        <a href="{% url 'edit_contract' contract.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'delete_contract' contract.id %}" class="btn btn-danger">Delete</a>
+    </div>
+</div>
+{% endblock %}

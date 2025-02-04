@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<h1>Services</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Service Type</th>
+            <th>Connection Type</th>
+            <th>Speed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for service in services %}
+        <tr>
+            <td>{{ service.service_type }}</td>
+            <td>{{ service.connection_type }}</td>
+            <td>{{ service.speed }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!--<a href="{% url 'add_service' %}" class="btn btn-primary">Add Service</a>-->
+{% endblock %}

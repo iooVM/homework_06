@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Edit Contract{% else %}Add Contract{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{% if form.instance.pk %}Edit Contract{% else %}Add Contract{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Отображение ошибок валидации -->
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Please correct the errors below.
+            </div>
+        {% endif %}
+
+        <!-- Поля формы -->
+        <div class="mb-3">
+            <label for="{{ form.provider.id_for_label }}" class="form-label">Provider</label>
+            {{ form.provider }}
+            {% if form.provider.errors %}
+                <div class="text-danger">{{ form.provider.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.contract_number.id_for_label }}" class="form-label">Contract Number</label>
+            {{ form.contract_number }}
+            {% if form.contract_number.errors %}
+                <div class="text-danger">{{ form.contract_number.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.contact_person.id_for_label }}" class="form-label">Contact Person</label>
+            {{ form.contact_person }}
+            {% if form.contact_person.errors %}
+                <div class="text-danger">{{ form.contact_person.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="text-danger">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Кнопки -->
+        <button type="submit" class="btn btn-primary">
+            {% if form.instance.pk %}Update{% else %}Add{% endif %}
+        </button>
+        <a href="{% url 'contracts' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

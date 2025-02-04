@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Network Devices{% endblock %}
+
+{% block content %}
+<h1>Network Devices</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Site</th>
+            <th>IP Address</th>
+            <th>Login</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for device in network_devices %}
+        <tr>
+            <td>{{ device.name }}</td>
+            <td>{{ device.site }}</td>
+            <td>{{ device.ip_address }}</td>
+            <td>{{ device.login }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!--<a href="{% url 'add_network_device' %}" class="btn btn-primary">Add Network Device</a>-->
+{% endblock %}

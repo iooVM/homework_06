@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Dedicated Providers{% endblock %}
+
+{% block content %}
+<h1>Dedicated Providers</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Service Type</th>
+            <th>Connection Type</th>
+            <th>Speed</th>
+            <th>Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for provider in dedicated_providers %}
+        <tr>
+            <td>{{ provider.service_type }}</td>
+            <td>{{ provider.connection_type }}</td>
+            <td>{{ provider.speed }}</td>
+            <td>{{ provider.gateway }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% comment %} <a href="{% url 'add_dedicated_provider' %}" class="btn btn-primary">Add Dedicated Provider</a> {% endcomment %}
+
+{% endblock %}

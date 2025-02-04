@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block content %}
+<h1>Sites</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>TD</th>
+            <th>Legal Entity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for site in sites %}
+        <tr>
+            <td>{{ site.name }}</td>
+            <td>{{ site.address }}</td>
+            <td>{{ site.td }}</td>
+            <td>{{ site.legal_entity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!--<a href="{% url 'add_site' %}" class="btn btn-primary">Add Site</a>-->
+{% endblock %}

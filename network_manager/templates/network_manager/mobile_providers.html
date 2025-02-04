@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Mobile Providers{% endblock %}
+
+{% block content %}
+<h1>Mobile Providers</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Service Type</th>
+            <th>Connection Type</th>
+            <th>Speed</th>
+            <th>Operator</th>
+            <th>SIM Card Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for provider in mobile_providers %}
+        <tr>
+            <td>{{ provider.service_type }}</td>
+            <td>{{ provider.connection_type }}</td>
+            <td>{{ provider.speed }}</td>
+            <td>{{ provider.operator }}</td>
+            <td>{{ provider.sim_card_number }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!--<a href="{% url 'add_mobile_provider' %}" class="btn btn-primary">Add Mobile Provider</a>-->
+{% endblock %}
