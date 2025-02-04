@@ -1,0 +1,35 @@
+image: python:3.10  # Используем образ Python 3.10
+
+services:
+  - redis:latest  # Запускаем Redis как сервис
+
+stages:
+  - test
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  POETRY_CACHE_DIR: "$CI_PROJECT_DIR/.cache/poetry"
+  POETRY_VIRTUALENVS_IN_PROJECT: "true"
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .cache/pip
+    - .cache/poetry
+    - .venv/
+
+before_script:
+  - python -m pip install --upgrade pip
+  - pip install poetry
+  - poetry install
+
+test:
+  stage: test
+  script:
+    - poetry run python manage.py test
+
+manual_test:
+  stage: test
+  script:
+    - poetry run python manage.py test
+  when: manual  # Запуск вручную
