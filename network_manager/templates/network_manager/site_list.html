@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Sites{% endblock %}
+
+{% block content %}
+<h1>Sites</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>Legal Entity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if sites %}
+            {% for site in sites %}
+            <tr onclick="location.href='{% url 'edit_site' site.id %}'" style="cursor: pointer;">
+                <td>{{ site.name }}</td>
+                <td>{{ site.description }}</td>
+                <td>{{ site.address }}</td>
+                <td>{{ site.legal_entity }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No sites available.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+<a href="{% url 'add_site' %}" class="btn btn-primary">Add Site</a>
+{% endblock %}

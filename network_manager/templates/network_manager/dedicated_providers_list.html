@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Dedicated Providers{% endblock %}
+
+{% block content %}
+<h1>Dedicated Providers</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Service Type</th>
+            <th>Connection Type</th>
+            <th>Speed</th>
+            <th>Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if dedicated_providers %}
+            {% for provider in dedicated_providers %}
+            <tr onclick="location.href='{% url 'edit_dedicated_provider' provider.id %}'" style="cursor: pointer;">
+                <td>{{ provider.service_type }}</td>
+                <td>{{ provider.connection_type }}</td>
+                <td>{{ provider.speed }}</td>
+                <td>{{ provider.gateway }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No dedicated providers available.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+<a href="{% url 'add_dedicated_provider' %}" class="btn btn-primary">Add Dedicated Provider</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Mobile Providers{% endblock %}
+
+{% block content %}
+<h1>Mobile Providers</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Operator</th>
+            <th>SIM Card Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if mobile_providers %}
+            {% for provider in mobile_providers %}
+            <tr onclick="location.href='{% url 'edit_mobile_provider' provider.id %}'" style="cursor: pointer;">
+                <td>{{ provider.operator }}</td>
+                <td>{{ provider.sim_card_number }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="2">No mobile providers available.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+<a href="{% url 'add_mobile_provider' %}" class="btn btn-primary">Add Mobile Provider</a>
+{% endblock %}

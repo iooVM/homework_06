@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}External IPs{% endblock %}
+
+{% block content %}
+<h1>External IPs</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Dedicated Provider</th>
+            <th>IP Address</th>
+            <th>Mask</th>
+            <th>Gateway</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if external_ips %}
+            {% for external_ip in external_ips %}
+            <tr onclick="location.href='{% url 'edit_external_ip' external_ip.id %}'" style="cursor: pointer;">
+                <td>{{ external_ip.dedicated_provider }}</td>
+                <td>{{ external_ip.ip_address }}</td>
+                <td>{{ external_ip.mask }}</td>
+                <td>{{ external_ip.gw }}</td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">No external IPs available.</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>
+<a href="{% url 'add_external_ip' %}" class="btn btn-primary">Add External IP</a>
+{% endblock %}
