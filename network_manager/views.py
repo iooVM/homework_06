@@ -19,14 +19,50 @@ from .forms import ServiceForm
 
 from .forms import SiteForm
 
+
+
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render
+
+
+
+
+from django.contrib.auth.decorators import login_required
+
+
+# def is_manager(user):
+#     return user.groups.filter(name='managers').exists()
+#
+# def is_user(user):
+#     return user.groups.filter(name='users').exists()
+
+def is_manager(user):
+    return user.groups.filter(name='managers').exists()
+
+@user_passes_test(is_manager)
+def manager_view(request):
+    return render(request, 'manager_template.html')
+
+def is_user(user):
+    return user.groups.filter(name='users').exists()
+
+@user_passes_test(is_user)
+def user_view(request):
+    return render(request, 'user_template.html')
+
+
+@user_passes_test(is_manager)
 def contracts(request):
     contracts = Contract.objects.all()
     return render(request, 'network_manager/contracts.html', {'contracts': contracts})
 
+
+@user_passes_test(is_manager)
 def contract_detail(request, pk):
     contract = get_object_or_404(Contract, pk=pk)
     return render(request, 'network_manager/contract_detail.html', {'contract': contract})
 
+@user_passes_test(is_manager)
 def add_contract(request):
     if request.method == 'POST':
         form = ContractForm(request.POST)
@@ -37,6 +73,7 @@ def add_contract(request):
         form = ContractForm()
     return render(request, 'network_manager/contract_form.html', {'form': form})
 
+@user_passes_test(is_manager)
 def edit_contract(request, pk):
     contract = get_object_or_404(Contract, pk=pk)
     if request.method == 'POST':
@@ -48,6 +85,7 @@ def edit_contract(request, pk):
         form = ContractForm(instance=contract)
     return render(request, 'network_manager/contract_form.html', {'form': form})
 
+@user_passes_test(is_manager)
 def delete_contract(request, pk):
     contract = get_object_or_404(Contract, pk=pk)
     if request.method == 'POST':
@@ -129,12 +167,14 @@ def edit_dedicated_provider(request, id):
     return render(request, 'network_manager/edit_dedicated_provider.html', {'form': form})
 
 
+@user_passes_test(is_user)
 
 def external_ips_list(request):
     external_ips = ExternalIP.objects.all()
     return render(request, 'network_manager/external_ips_list.html', {'external_ips': external_ips})
 
 
+@user_passes_test(is_user)
 
 def add_external_ip(request):
     if request.method == 'POST':
@@ -145,6 +185,8 @@ def add_external_ip(request):
     else:
         form = ExternalIPForm()
     return render(request, 'network_manager/add_external_ip.html', {'form': form})
+
+@user_passes_test(is_user)
 
 def edit_external_ip(request, id):
     external_ip = get_object_or_404(ExternalIP, id=id)
@@ -340,6 +382,7 @@ class ContractUpdateView(UpdateView):
     form_class = ContractForm
     template_name = 'network_manager/contract_form.html'
     success_url = reverse_lazy('contracts')
+
 
 class ContractDeleteView(DeleteView):
     model = Contract

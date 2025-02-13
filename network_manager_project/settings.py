@@ -130,3 +130,6 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+LOGIN_REDIRECT_URL = '/home/'  # URL, на который будет перенаправлен пользователь после входа
+LOGOUT_REDIRECT_URL = '/'  # URL, на который будет перенаправлен пользователь после выхода

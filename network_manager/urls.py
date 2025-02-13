@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from .views import (
     ContractListView, ContractDetailView, ContractCreateView,
     ContractUpdateView, ContractDeleteView, dedicated_providers_list,
@@ -11,11 +12,14 @@ from .views import (
     network_device_list, add_network_device, edit_network_device,
     service_list, add_service, edit_service,
     site_list, add_site, edit_site,
+    manager_view,user_view,
 
 )
 
 urlpatterns = [
-    path('', views.home, name='home'),  # Главная страница
+    # path('', views.home, name='home'),  # Главная страница
+    path('', auth_views.LoginView.as_view(), name='login'),  # Главная страница
+    path('home/', views.home, name='home'),  # Главная страница
     path('contracts/', views.contracts, name='contracts'),
     path('contract/<int:pk>/', views.contract_detail, name='contract_detail'),
     path('contract/add/', views.add_contract, name='add_contract'),
@@ -57,6 +61,12 @@ urlpatterns = [
     path('sites/', site_list, name='site_list'),
     path('sites/add/', add_site, name='add_site'),
     path('sites/edit/<int:site_id>/', edit_site, name='edit_site'),
+    # path('manager/', manager_view, name='manager_view'),
+    # path('user/', user_view, name='user_view'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('manager/', manager_view, name='manager_view'),
+    path('user/', user_view, name='user_view'),
 ]
 
 # path('contract/<int:pk>/', ContractDetailView.as_view(), name='contract_detail'),

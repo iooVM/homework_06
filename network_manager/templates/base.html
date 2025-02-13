@@ -44,6 +44,19 @@
             </div>
         </div>
     </nav>
+{% comment %}
+{% if user.is_authenticated %}
+    {% if user.groups.filter(name='managers').exists %}
+        <h1>Добро пожаловать, менеджер!</h1>
+    {% elif user.groups.filter(name='users').exists %}
+        <h1>Добро пожаловать, пользователь!</h1>
+    {% else %}
+        <h1>Добро пожаловать!</h1>
+    {% endif %}
+{% else %}
+    <h1>Пожалуйста, войдите в систему.</h1>
+{% endif %}
+{% endcomment %}
 
     <div class="container mt-4">
         {% block content %}
